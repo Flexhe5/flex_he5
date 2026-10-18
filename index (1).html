@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Card</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f2f2f2;--card:#f5f5f5;--rim:#fff;--muted:#a0a5a5;--strong:#0f2326;--shadow:rgba(0,0,0,.12);--pbg:#fff;--ptx:#111;--pbd:#ddd}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111314;--card:#1d2022;--rim:#2a2e30;--muted:#6f7778;--strong:#e8f1f2;--shadow:rgba(0,0,0,.5);--pbg:#1d2022;--ptx:#eee;--pbd:#3a3f41}}
+:root[data-theme="dark"]{--bg:#111314;--card:#1d2022;--rim:#2a2e30;--muted:#6f7778;--strong:#e8f1f2;--shadow:rgba(0,0,0,.5);--pbg:#1d2022;--ptx:#eee;--pbd:#3a3f41}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(circle at 15% 20%,var(--g1) 0,transparent 42%),radial-gradient(circle at 85% 25%,var(--g2) 0,transparent 42%),radial-gradient(circle at 50% 95%,var(--g3) 0,transparent 48%),var(--g0);background-attachment:fixed;font-family:Inter,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;box-sizing:border-box}
+#app{width:100%;display:flex;flex-direction:column;align-items:center;gap:20px}
+.card{position:relative;background:var(--gl);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid var(--gb);box-shadow:0 30px 60px rgba(30,40,110,.28),inset 0 1px 1px rgba(255,255,255,.7),inset 0 -1px 2px rgba(255,255,255,.2);max-width:100%;box-sizing:border-box}.card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(255,255,255,0) 40%);pointer-events:none}
+.card img{display:block;width:100%;object-fit:cover;border:1px solid rgba(255,255,255,.4);box-sizing:border-box;box-shadow:0 14px 28px rgba(10,20,60,.35)}
+.tag{font-weight:800;color:var(--muted);letter-spacing:-.02em;margin:26px 0 12px}
+.ttl{font-weight:700;color:var(--muted);letter-spacing:-.03em;line-height:1.2;margin:0}
+.ttl b{color:var(--strong)}
+#ob{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:16px;z-index:5;display:none;background:var(--strong);color:var(--bg);border:0;border-radius:99px;padding:12px 18px;font:600 14px system-ui;cursor:pointer}
+#panel{position:fixed;top:0;bottom:0;left:0;width:min(340px,100%);background:color-mix(in srgb,var(--pbg) 75%,transparent);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);color:var(--ptx);border-right:1px solid var(--pbd);z-index:6;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto;box-sizing:border-box;direction:rtl;font:14px system-ui;display:none}
+#panel h3{margin:0 0 12px}
+#panel label{display:block;margin:12px 0 4px;font-weight:600}
+#panel input[type=text],#panel textarea{width:100%;box-sizing:border-box;padding:8px;border:1px solid var(--pbd);border-radius:8px;background:transparent;color:inherit;font:inherit}
+#panel input[type=range]{width:100%}
+#panel button{margin-top:14px;padding:10px 14px;border-radius:8px;border:1px solid var(--pbd);background:transparent;color:inherit;font:600 14px system-ui;cursor:pointer}
+#panel button.p{background:var(--strong);color:var(--bg);border:0}
+small{opacity:.65}
+:root{--g0:#dfe9f3;--g1:#7fd1ff;--g2:#c79bff;--g3:#ffb3a7;--gl:rgba(255,255,255,.28);--gb:rgba(255,255,255,.65);--m:rgba(20,40,48,.5);--s:#0f2326}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g0:#0d1114;--g1:#1d4e6b;--g2:#4a2d7a;--g3:#7a3b3b;--gl:rgba(255,255,255,.09);--gb:rgba(255,255,255,.22);--m:rgba(232,241,242,.5);--s:#fff}}
+:root[data-theme="dark"]{--g0:#0d1114;--g1:#1d4e6b;--g2:#4a2d7a;--g3:#7a3b3b;--gl:rgba(255,255,255,.09);--gb:rgba(255,255,255,.22);--m:rgba(232,241,242,.5);--s:#fff}
+.tag,.ttl{color:var(--m)}.ttl b{color:var(--s)}
+.song{display:flex;flex-direction:column;gap:10px;padding:12px 16px 12px 12px;color:inherit;text-decoration:none;position:relative;background:var(--gl);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid var(--gb);box-shadow:0 18px 36px rgba(30,40,110,.25),inset 0 1px 1px rgba(255,255,255,.7);max-width:100%;box-sizing:border-box}
+.song::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(255,255,255,0) 40%);pointer-events:none}
+.song img{width:52px;height:52px;border-radius:14px;object-fit:cover;flex:none;border:1px solid rgba(255,255,255,.4)}
+.si{flex:1;min-width:0}
+.sn{font-weight:700;color:var(--s);font-size:16px;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa{color:var(--m);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.song svg{flex:none}
+.row{display:flex;align-items:center;gap:12px}
+.bar{height:4px;border-radius:2px;background:color-mix(in srgb,var(--s) 25%,transparent);position:relative;margin:2px 4px}
+.bar i{position:absolute;left:0;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--s)}
+.ctl{display:flex;justify-content:center;align-items:center;gap:30px;color:var(--s)}
+.ctl .pl{width:40px;height:40px;border-radius:50%;background:var(--s);color:var(--g0);display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<button id="ob" style="display: none;">⚙ لوحة المالك</button>
+<div id="panel" style="display: none;">
+<h3>لوحة المالك</h3>
+<label>العنوان الصغير</label><input type="text" id="f_tag">
+<label>النص الرئيسي <small>(حط ** حوالين الكلام الغامق)</small></label><textarea id="f_title" rows="4"></textarea>
+<label>الصورة</label><input type="file" id="f_img" accept="image/*">
+<label>عرض الكارت: <span id="v_w">413</span></label><input type="range" id="f_w" min="240" max="760">
+<label>ارتفاع الصورة: <span id="v_ih">195</span></label><input type="range" id="f_ih" min="100" max="460">
+<label>استدارة الأطراف: <span id="v_r">21</span></label><input type="range" id="f_r" min="0" max="90">
+<label>حجم الخط: <span id="v_fs">22</span></label><input type="range" id="f_fs" min="14" max="44">
+<label>المسافة الداخلية: <span id="v_p">40</span></label><input type="range" id="f_p" min="8" max="64">
+<hr>
+<label>رابط سبوتيفاي <small>(open.spotify.com/...)</small></label><input type="text" id="f_su" dir="ltr">
+<label>حجم كارت الأغاني: <span id="v_sc">100</span>%</label><input type="range" id="f_sc" min="50" max="100">
+<label>استدارة حواف كارت الأغاني: <span id="v_sr">31</span></label><input type="range" id="f_sr" min="0" max="50">
+<button class="p" id="save">حفظ ونشر</button> <button id="close">إغلاق</button> <button id="logout">خروج</button>
+<div id="msg">جاري الحفظ...</div>
+</div>
+
+<script>
+/* ====== عدّل هذه القيم الثلاث فقط ====== */
+var GH_OWNER="YOUR_GITHUB_USERNAME";
+var GH_REPO="YOUR_REPO_NAME";
+var GH_BRANCH="main";
+/* ======================================= */
+var DEF_IMG="data:image/svg+xml;utf8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#173a42"/><stop offset=".6" stop-color="#3f7a80"/><stop offset="1" stop-color="#6f9c93"/></linearGradient></defs><rect width="600" height="340" fill="url(#g)"/><path d="M0 230l90-40 60 20 70-45 40 15 60-80 60 70 70-30 60 35 50-25 40 20v110H0z" fill="#38565c"/><path d="M0 250l120-30 90 20 120-25 150 30 120-15v110H0z" fill="#0f2226"/><rect y="285" width="600" height="55" fill="#0a1719"/></svg>');
+var S={"tag": "تجربة 1", "title": "هذا الموقع يكون **موقي الشخصي**", "img": "", "w": 413, "ih": 195, "r": 21, "fs": 22, "p": 40, "su": "https://open.spotify.com/intl-ar/track/2Xr1dTzJee307rmrkt8c0g?si=53c6edcf82ca4499", "sc": 100, "sr": 31};
+var app=document.getElementById("app"),panel=document.getElementById("panel"),ob=document.getElementById("ob"),msg=document.getElementById("msg");
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function song(){
+ var w=Math.round(S.w*S.sc/100),u=S.su||"";
+ var m=u.match(/spotify\.com\/(?:intl-[a-z]+\/)?(track|album|playlist|episode|show|artist)\/([A-Za-z0-9]+)/);
+ if(!m)return '<div class="song" style="width:'+w+'px;border-radius:'+S.sr+'px;padding:18px;text-align:center;color:var(--m)">ألصق رابط أغنية من سبوتيفاي في لوحة المالك</div>';
+ var h=(m[1]==="track"||m[1]==="episode")?152:352;
+ return '<div class="song" style="width:'+w+'px;border-radius:'+S.sr+'px;padding:8px"><iframe title="Spotify" src="https://open.spotify.com/embed/'+m[1]+'/'+m[2]+'?utm_source=generator" width="100%" height="'+h+'" style="border:0;border-radius:'+Math.max(0,S.sr-8)+'px;display:block" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>';
+}
+var last="";
+function render(){
+ var key=JSON.stringify([S.su,S.w,S.sc,S.sr]);
+ var t=esc(S.title).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+ app.innerHTML='<div class="card" style="width:'+S.w+'px;border-radius:'+(S.r+8)+'px;padding:'+(S.p/3)+'px '+(S.p/3)+'px '+S.p+'px">'+
+ '<img alt="" style="height:'+S.ih+'px;border-radius:'+S.r+'px" src="'+(S.img||DEF_IMG)+'">'+
+ '<div style="padding:0 '+(S.p*2/3)+'px"><div class="tag" style="font-size:'+(S.fs*.9)+'px">'+esc(S.tag)+'</div>'+
+ '<p class="ttl" style="font-size:'+S.fs+'px">'+t+'</p></div></div>'+song();
+}
+render();
+fetch("config.json?"+Date.now()).then(function(r){return r.json()}).then(function(j){S=Object.assign(S,j);render()}).catch(function(){});
+var TK="gh_owner_token";
+function token(){try{return localStorage.getItem(TK)}catch(e){return null}}
+if(location.hash==="#admin"&&!token()){
+ var t=prompt("الصق GitHub Personal Access Token (صلاحية Contents: Read and write لهذا الريبو فقط)");
+ if(t){try{localStorage.setItem(TK,t.trim())}catch(e){}}
+}
+if(token())ob.style.display="block";
+var ids=["tag","title","w","ih","r","fs","p","su","sc","sr"];
+function fill(){ids.forEach(function(k){document.getElementById("f_"+k).value=S[k];var v=document.getElementById("v_"+k);if(v)v.textContent=S[k]})}
+ids.forEach(function(k){document.getElementById("f_"+k).addEventListener("input",function(e){
+ var v=e.target.value;S[k]=(e.target.type==="range")?+v:v;var l=document.getElementById("v_"+k);if(l)l.textContent=v;render()})});
+ob.onclick=function(){panel.style.display="block";fill()};
+document.getElementById("close").onclick=function(){panel.style.display="none"};
+document.getElementById("logout").onclick=function(){try{localStorage.removeItem(TK)}catch(e){}location.hash="";location.reload()};
+function api(path,opt){return fetch("https://api.github.com/repos/"+GH_OWNER+"/"+GH_REPO+"/contents/"+path,Object.assign({headers:{Authorization:"Bearer "+token(),Accept:"application/vnd.github+json"}},opt))}
+async function put(path,b64,message){
+ var sha;var g=await api(path+"?ref="+GH_BRANCH);if(g.ok)sha=(await g.json()).sha;
+ var r=await api(path,{method:"PUT",body:JSON.stringify({message:message,content:b64,branch:GH_BRANCH,sha:sha})});
+ if(!r.ok)throw new Error(r.status);
+}
+document.getElementById("f_img").addEventListener("change",async function(e){
+ var f=e.target.files[0];if(!f)return;msg.textContent="جاري رفع الصورة...";
+ try{
+  var b64=await new Promise(function(ok,no){var fr=new FileReader();fr.onload=function(){ok(fr.result.split(",")[1])};fr.onerror=no;fr.readAsDataURL(f)});
+  var name="images/"+Date.now()+"-"+f.name.replace(/[^\w.\-]/g,"_");
+  await put(name,b64,"Upload image");
+  S.img=name;render();msg.textContent="تم رفع الصورة";
+ }catch(err){msg.textContent="تعذر رفع الصورة، تأكد من التوكن"}
+});
+document.getElementById("save").onclick=async function(){
+ msg.textContent="جاري الحفظ...";
+ try{await put("config.json",btoa(unescape(encodeURIComponent(JSON.stringify(S,null,1)))),"Update site");
+  msg.textContent="تم الحفظ. يظهر للزوار خلال دقيقة تقريباً."}
+ catch(err){msg.textContent="تعذر الحفظ، تأكد من التوكن وإعدادات الريبو"}
+};
+</script>
+
+
+</body></html>
